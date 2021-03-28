@@ -101,7 +101,6 @@ class SkillLogic:
                         end_session=endSession
                     )
                 )
-
         if resp is None:
             resp = YaDResponse(
                 YaDResponseObject(
@@ -109,6 +108,6 @@ class SkillLogic:
                     end_session=endSession
                 )
             )
-
         if endSession:
             resp.response.text += ". До скорых встреч!"
+        return resp
