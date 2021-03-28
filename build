@@ -1,0 +1,4 @@
+#!/bin/bash
+poetry install
+poetry build
+docker build -t chaa/relocation_helper_poetry ./
