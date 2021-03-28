@@ -8,7 +8,7 @@ class Dao:
 
     def __init__(self, config: ApplicationConfiguration):
         self.daoLog = logging.getLogger("dao")
-        self.con = sqlite3.connect(config.basePath)
+        self.con = sqlite3.connect(config.basePath, check_same_thread=False)
 
     def getBoxId(self, boxName: str):
         cur = self.con.cursor()
