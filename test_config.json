@@ -1,1 +1,10 @@
-{}
+{
+  "logFileName": "/tmp/relocation_helper.log",
+  "basePath": "../test_relocation_helper.db",
+  "server": {
+    "port": "53045",
+    "host": "localhost",
+    "engine": "gevent"
+  },
+  "logOnlyInFile": false
+}
