@@ -7,7 +7,7 @@ Before=network.target
 [Service]
 Type=notify
 TimeoutStopSec=10
-ExecStart=sh -c 'cd %WORKDIR%/relocation-helper;exec poetry run python ./relocation_helper/main.py %WORKDIR%/relocation-helper/config.json 2>&1'
+ExecStart=sh -c 'cd %WORKDIR%/ya_skill_relocation_helper;exec poetry run python ./relocation_helper/main.py %WORKDIR%/ya_skill_relocation_helper/config.json 2>&1'
 Restart=on-failure
 User=%USER%
 [Install]

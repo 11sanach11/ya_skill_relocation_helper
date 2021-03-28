@@ -8,11 +8,11 @@ pip3 install poetry
 - clone repo from github into /opt:
 ```shell
 WORKDIR=/opt
-sudo mkdir -p $WORKDIR/relocation-helper
-sudo chown $USER:$USER $WORKDIR/relocation-helper
+sudo mkdir -p $WORKDIR/ya_skill_relocation_helper
+sudo chown $USER:$USER $WORKDIR/ya_skill_relocation_helper
 cd $WORKDIR
 git clone https://github.com/11sanach11/ya_skill_relocation_helper.git
-cd relocation-helper
+cd ya_skill_relocation_helper
 poetry install
 cp ./test_config.json ./config.json
 <<<!!! PREPARE CONFIG FILE, SET server.port, etc...
@@ -25,5 +25,5 @@ $WORKDIR/update.sh
 ## UPDATE
 ```shell
 relocation-helper
-$WORKDIR/relocation-helper/update.sh
+$WORKDIR/ya_skill_relocation_helper/update.sh
 ```
