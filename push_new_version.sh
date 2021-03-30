@@ -6,7 +6,7 @@ git tag -l|grep -q "$VERSION" && echo "Version $VERSION already exists, please c
 poetry run pytest
 [[ ! "$COMMENT" ]] && read -p 'Please set commit comment: ' COMMENT
 git add --all
-git commit -m "comment"
+git commit -m "$VERSION: $COMMENT"
 git tag -a $VERSION -m "$COMMENT"
 git push origin master
 git push origin $VERSION
