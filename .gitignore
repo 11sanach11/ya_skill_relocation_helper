@@ -1,3 +1,4 @@
 /relocation_helper/relocation_helper.db
 /dist/
 **/__pycache__
+/remote_update.sh

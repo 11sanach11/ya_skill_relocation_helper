@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 COMMENT="${1:-}"
 VERSION=`cat relocation_helper/__init__.py|grep '__version__'|sed -e 's/$/\nprint(__version__)/g'|poetry run python`
 echo "Version: $VERSION"
