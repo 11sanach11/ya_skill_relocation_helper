@@ -13,6 +13,7 @@ log = logging.getLogger("skill_logic")
 class YaDRequestSessionObject:
     message_id: int
     session_id: str
+    new: bool
 
 
 @dataclass
@@ -54,9 +55,9 @@ class SkillLogic:
 
     def process(self, req: YaDRequest):
         log.debug("Command: %s", req.request.command)
-        endSession = req.request.command.startswith("попроси переезд") or \
-                     "создать коробку" in req.request.command or \
-                     "добавить в коробку" in req.request.command
+        endSession = req.session.new and \
+                     nlu.atLeastOneWordFromEachGroupIn(req.request.command,
+                                                       [["создавать", "добавлять", "сделать", "положить"]])
         resp = None
         if (not req.request.command and not req.request.original_utterance) or "помоги" == req.request.command:
             resp = YaDResponse(
@@ -65,7 +66,7 @@ class SkillLogic:
                     end_session=endSession
                 )
             )
-        elif nlu.allWordsInCommand(req.request.command, ["создавать", "коробка"]):
+        elif nlu.atLeastOneWordFromEachGroupIn(req.request.command, [["создавать", "сделать"], "коробка"]):
             boxName = req.request.command.split(" коробку ")[1].strip()
             if self.dao.isBoxExists(boxName):
                 resp = YaDResponse(
@@ -82,7 +83,7 @@ class SkillLogic:
                         end_session=endSession
                     )
                 )
-        elif nlu.allWordsInCommand(req.request.command, ["добавлять", "коробка", "предмет"]):
+        elif nlu.atLeastOneWordFromEachGroupIn(req.request.command, [["добавлять", "полагать", "покладь"], "коробка", "предмет"]):
             boxName = req.request.command.split(" коробку ")[1].split(" предмет ")[0].strip()
             item = req.request.command.split(" предмет ")[1].strip()
             boxId = self.dao.getBoxId(boxName)

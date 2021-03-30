@@ -8,7 +8,7 @@ echo "CURRENT VERSION: $(git -C $workdir describe --tags --abbrev=0)"
 git -C $workdir pull || true
 echo "list of available version:"
 git -C $workdir tag
-read -p 'Please set update version: ' version
+[[ ! "$version" ]] && read -p 'Please set update version: ' version
 git -C $workdir checkout $version
 echo "Switch into version: $(git -C $workdir describe --tags --abbrev=0)"
 echo "Update project dependencies..."

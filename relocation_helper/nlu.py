@@ -30,5 +30,13 @@ def preprocess_set(text):
     return set(preprocess_list(text))
 
 
+def atLeastOneWordFromEachGroupIn(text: str, lexemGroups: list):
+    tokens = preprocess_set(text)
+    for lexemGroup in lexemGroups:
+        if len(tokens & (set([lexemGroup]) if isinstance(lexemGroup, str) else set(lexemGroup))) == 0:
+            return False
+    return True
+
+
 def allWordsInCommand(command: str, lexems: list):
     return len(preprocess_set(command) & set(lexems)) == len(lexems)
