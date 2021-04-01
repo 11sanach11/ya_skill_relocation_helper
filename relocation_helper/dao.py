@@ -1,5 +1,6 @@
 import logging
 import sqlite3
+import threading
 from sqlite3.dbapi2 import Cursor
 
 from relocation_helper.appConfig import ApplicationConfiguration
@@ -9,17 +10,19 @@ class Dao:
 
     def _safeExecution(func):
         def wrapper(self, *args, **kwargs):
-            cur = self.con.cursor()
-            rez = (func(self, *args, **kwargs))(cur)
-            self.con.commit()
-            cur.close()
-            return rez
+            with self._assignLock:
+                cur = self.con.cursor()
+                rez = (func(self, *args, **kwargs))(cur)
+                self.con.commit()
+                cur.close()
+                return rez
 
         return wrapper
 
     def __init__(self, config: ApplicationConfiguration):
         self.daoLog = logging.getLogger("dao")
         self.con = sqlite3.connect(config.basePath, check_same_thread=False)
+        self._assignLock = threading.Lock()
 
     @_safeExecution
     def getBoxId(self, boxName: str):
