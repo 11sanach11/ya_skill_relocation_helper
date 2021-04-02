@@ -51,7 +51,7 @@ def _getTemplateFile(templateName):
 
 @get("/info")
 def info():
-    return {"version": __version__, "app": "telegram_mailing_helper"}
+    return {"version": __version__, "app": "relocation-helper"}
 
 
 class BottleServer(threading.Thread):
